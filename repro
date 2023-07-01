@@ -1,0 +1,20 @@
+erl -noshell -eval "Path = os:find_executable('erl'), Port1 = erlang:open_port({spawn_executable, Path},
+      [binary,
+       {args, ['-noshell', '-kernel', 'standard_io_encoding', 'latin1', '-eval', \"io:setopts(standard_io, [{encoding, latin1}]), io:format('duπa~n', []), erlang:halt()\"]},
+       exit_status]),
+    receive
+        {Port1, {data, A}} -> io:fwrite('~p~n', [A])                
+    after
+        2000 -> io:fwrite('nothing~n')
+    end, erlang:halt()"
+<<"du\\x{3C0}a\n">>
+
+erl -noshell -eval "Path = os:find_executable('erl'), Port1 = erlang:open_port({spawn_executable, Path},
+      [binary,
+       {args, ['-noshell', '-kernel', 'standard_io_encoding', 'latin1', '-eval', \"io:setopts(standard_io, [{encoding, latin1}]), io:format('duπa~n', []), erlang:halt()\"]},
+       exit_status]),
+    receive
+        {Port1, {data, A}} -> io:fwrite('~p~n', [A])                
+    after
+        2000 -> io:fwrite('nothing~n')
+    end, erlang:halt()"
