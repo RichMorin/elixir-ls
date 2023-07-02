@@ -336,6 +336,8 @@ defmodule ElixirLS.LanguageServer.Server do
   defp handle_notification(notification("exit"), state = %__MODULE__{}) do
     code = if state.received_shutdown?, do: 0, else: 1
 
+    IO.puts(:stderr, "Exiting with code #{code}")
+
     unless Application.get_env(:language_server, :test_mode) do
       System.stop(code)
     else
@@ -593,6 +595,7 @@ defmodule ElixirLS.LanguageServer.Server do
   end
 
   defp handle_request(request(_id, "shutdown", _params), state = %__MODULE__{}) do
+    IO.puts(:stderr, "Received shutdown request")
     {:ok, nil, %{state | received_shutdown?: true}}
   end
 
