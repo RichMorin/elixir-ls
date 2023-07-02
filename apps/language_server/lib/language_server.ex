@@ -29,14 +29,7 @@ defmodule ElixirLS.LanguageServer do
 
   @impl Application
   def stop(_state) do
-    if ElixirLS.Utils.WireProtocol.io_intercepted?() do
-      LanguageServer.JsonRpc.show_message(
-        :error,
-        "ElixirLS has crashed. See Output panel."
-      )
-
-      System.halt(1)
-    end
+    IO.puts(:stderr, "Stopping language server app")
 
     :ok
   end
