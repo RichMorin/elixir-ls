@@ -23,7 +23,7 @@ defmodule ElixirLS.LanguageServer.MixShell do
 
   @impl Mix.Shell
   def prompt(message) do
-    if WireProtocol.io_intercepted?() do
+    if WireProtocol.io_user_intercepted?() do
       IO.puts(message)
 
       error(

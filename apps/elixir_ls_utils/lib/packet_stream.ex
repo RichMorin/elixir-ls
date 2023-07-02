@@ -53,7 +53,7 @@ defmodule ElixirLS.Utils.PacketStream do
             end
 
           if halt_on_error? do
-            if ElixirLS.Utils.WireProtocol.io_intercepted?() do
+            if ElixirLS.Utils.WireProtocol.io_error_intercepted?() do
               ElixirLS.Utils.WireProtocol.undo_intercept_output()
             end
 
